@@ -1,10 +1,10 @@
 import React from "react";
 import Logo from '../img/logo.png';
 
-function MeseraHomeView () {
+function MesaHomeView () {
     return (
         <div>
-            <p>Mesera Home view</p> 
+            <p>Mesa Home view</p> 
             <h3> INICIO DE SESIÓN EXITOSO 💗✨</h3>
             <div>
                 <img src= { Logo } alt='Logo Dhelados' />
@@ -13,4 +13,4 @@ function MeseraHomeView () {
     )
 }
 
-export default MeseraHomeView;
+export default MesaHomeView;

@@ -4,7 +4,8 @@ const Input = ({ placeHolder, label }) => {
     return (
         <div className='input-container'>
             {label}
-            <input type='text' placeholder={placeHolder} />
+            <input type='text' 
+            placeholder={placeHolder} />
         </div>
     );
 };
