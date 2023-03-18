@@ -4,6 +4,7 @@ import { useState } from "react";
 function LoginForm({ }) {
     const [credentials, setCredentials] = useState({ 'email': '', 'password': '' });
     const [errorMessage, setErrorMessage] = useState('')
+    const [token, setToken] = useState('')
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -15,10 +16,6 @@ function LoginForm({ }) {
             method: 'POST',
             body: JSON.stringify(
                 credentials
-                /* {
-                "email": "grace.hopper@systers.xyz",
-                "password": "123456"
-            } */
             ),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -27,14 +24,16 @@ function LoginForm({ }) {
             .then((res) => {
                 res.json()
                     .then(json => {
-                        console.log(json);
                         if (res.ok) {
+                            setToken(res)
+                            console.log(token)
                             console.log('inicio de sesión exitoso')
                             setErrorMessage('')
                         } else {
                             setErrorMessage(json)
+                            console.log(errorMessage)
                         }
-                    })
+                    });
             })
             .catch(() => {
                 console.error('Error en el inicio de sesión');

@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import '../stylesheets/LoginView.css'
 import Logo from '../img/logo.png';
 import LoginForm from './LoginForm'
