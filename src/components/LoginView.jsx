@@ -5,27 +5,13 @@ import Logo from '../img/logo.png';
 
 function LoginView() {
   const [credentials, setCredentials] = useState({ 'email': '', 'password': '' });
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCredentials({ ...credentials, [name]: value })
-    console.log(credentials)
+    // console.log(credentials)
   };
-
-  const getLoginErrorMsg = (errCode) => {
-    switch (errCode) {
-      case 401:
-        return "Credenciales inválidas. Por favor, verifique sus datos.";
-      case 404:
-        return "El usuario no existe. Por favor, sus datos.";
-      case 500:
-        return "Hubo un error interno en el servidor. Por favor, inténtelo de nuevo más tarde.";
-      default:
-        return "Hubo un error en el inicio de sesión. Por favor, inténtelo de nuevo más tarde.";
-    }
-  };
-
-  let errorMessage = '';
 
   const login = () => {
     fetch('http://localhost:8080/login', {
@@ -41,12 +27,21 @@ function LoginView() {
         'Content-type': 'application/json; charset=UTF-8',
       },
     })
-      .then((response) => response.json())
-      .then((json) => console.log(json))
-      .catch(error => {
-        const errorCode = error.response?.status || 500;
-        errorMessage = getLoginErrorMsg(errorCode);
-        console.log(errorMessage)
+      .then((res) => {
+        res.json()
+          .then(json => {
+            console.log(json);
+            if (res.ok) {
+              console.log('inicio de sesión exitoso')
+              setErrorMessage('')
+            } else {
+              setErrorMessage(json)
+            }
+          })
+      })
+      .catch(() => {
+        console.error('Error en el inicio de sesión');
+        setErrorMessage('Error en el inicio de sesión, por favor inténtelo nuevamente');
       })
   };
 
