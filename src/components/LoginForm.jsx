@@ -4,7 +4,7 @@ import { useState } from "react";
 function LoginForm({ }) {
     const [credentials, setCredentials] = useState({ 'email': '', 'password': '' });
     const [errorMessage, setErrorMessage] = useState('')
-    const [token, setToken] = useState('')
+   // const [token, setToken] = useState(null)
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -14,9 +14,7 @@ function LoginForm({ }) {
     const login = () => {
         fetch('http://localhost:8080/login', {
             method: 'POST',
-            body: JSON.stringify(
-                credentials
-            ),
+            body: JSON.stringify(credentials),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
             },
@@ -25,10 +23,12 @@ function LoginForm({ }) {
                 res.json()
                     .then(json => {
                         if (res.ok) {
-                            setToken(res)
-                            console.log(token)
+                            localStorage.setItem('accessToken', json.accessToken)
+                           // setToken(json)
+                           // console.log(token)
                             console.log('inicio de sesión exitoso')
                             setErrorMessage('')
+                            
                         } else {
                             setErrorMessage(json)
                             console.log(errorMessage)
@@ -41,7 +41,7 @@ function LoginForm({ }) {
             })
     };
 
-    const handleClick = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         login();
     };
@@ -74,7 +74,7 @@ function LoginForm({ }) {
                 </div>
                 <button
                     type='submit'
-                    onClick={handleClick} >
+                    onClick={handleSubmit} >
                     INGRESAR
                 </button>
             </form>

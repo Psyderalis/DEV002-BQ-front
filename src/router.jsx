@@ -1,20 +1,24 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { useState, useEffect } from 'react';
 import MesaHomeView from './components/MesaHomeView';
 import LoginView from './components/LoginView';
 
-function Router() {
+function App() {
+  
+  const accessToken = localStorage.getItem('accessToken')
+  console.log(accessToken)
 
   return (
     <div className="Router">
-      <BrowserRouter>
+      <Router>
         <Routes>
           <Route path='/' element={<LoginView />} />
           <Route path='/mesa-home' element={<MesaHomeView />} />
         </Routes>
-      </BrowserRouter>
+      </Router>
     </div>
   )
 }
 
-export default Router
+export default App
