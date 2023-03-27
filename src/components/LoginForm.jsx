@@ -1,55 +1,23 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+function LoginForm({ setCredentials }) {
 
-function LoginForm({ }) {
-    const [credentials, setCredentials] = useState({ 'email': '', 'password': '' });
-    const [errorMessage, setErrorMessage] = useState('')
-    const navigate = useNavigate()
-
+    let credentials = {
+        'email': '',
+        'password': ''
+    };
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setCredentials({ ...credentials, [name]: value })
+        credentials = { ...credentials, [name]: value }
         // console.log(credentials)
     };
-    const login = () => {
-        fetch('http://localhost:8080/login', {
-            method: 'POST',
-            body: JSON.stringify(credentials),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-        })
-            .then((res) => {
-                res.json()
-                    .then(json => {
-                        if (res.ok) {
-                            localStorage.setItem('accessToken', json.accessToken)
-                            // setToken(json)
-                            // console.log(token)
-                            console.log('inicio de sesión exitoso')
-                            setErrorMessage('')
-                            navigate('/orders')
-                        } else {
-                            setErrorMessage(json)
-                            console.log(errorMessage)
-                        }
-                    });
-            })
-            .catch(() => {
-                console.error('Error en el inicio de sesión');
-                setErrorMessage('Error en el inicio de sesión, por favor inténtelo nuevamente');
-            })
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
-        login();
+        setCredentials(credentials);
     };
 
     return (
         <div className='form-container'>
             <p>Ingrese sus datos, por favor:</p>
-            <form className='login-form'>
+            <form className='login-form' >
                 <div className='input-container'>
                     <label htmlFor='email'>Correo:</label>
                     <input
@@ -58,8 +26,8 @@ function LoginForm({ }) {
                         name='email'
                         id='email'
                         placeholder='example@example.com'
-                        value={credentials.email}
-                        onChange={handleChange} />
+                        onChange={handleChange}
+                    />
                 </div>
                 <div className='input-container'>
                     <label htmlFor='password'>Contraseña:</label>
@@ -69,8 +37,8 @@ function LoginForm({ }) {
                         name='password'
                         id='password'
                         placeholder='********'
-                        value={credentials.password}
-                        onChange={handleChange} />
+                        onChange={handleChange}
+                    />
                 </div>
                 <button
                     type='submit'
@@ -78,7 +46,6 @@ function LoginForm({ }) {
                     INGRESAR
                 </button>
             </form>
-            <p>{errorMessage}</p>
         </div>
     )
 };
