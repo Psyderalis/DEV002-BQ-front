@@ -1,10 +1,10 @@
-import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm({ }) {
     const [credentials, setCredentials] = useState({ 'email': '', 'password': '' });
     const [errorMessage, setErrorMessage] = useState('')
-   // const [token, setToken] = useState(null)
+    const navigate = useNavigate()
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -24,11 +24,11 @@ function LoginForm({ }) {
                     .then(json => {
                         if (res.ok) {
                             localStorage.setItem('accessToken', json.accessToken)
-                           // setToken(json)
-                           // console.log(token)
+                            // setToken(json)
+                            // console.log(token)
                             console.log('inicio de sesión exitoso')
                             setErrorMessage('')
-                            
+                            navigate('/orders')
                         } else {
                             setErrorMessage(json)
                             console.log(errorMessage)
