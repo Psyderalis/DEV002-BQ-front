@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import '../stylesheets/LoginView.css'
 import Logo from '../img/logo.png';
@@ -10,6 +11,7 @@ function LoginView() {
 
   const [errorMessage, setErrorMessage] = useState('')
   const [credentials, setCredentials] = useState(null);
+  const navigate = useNavigate();
 
   if (credentials) {
     fetch('http://localhost:8080/login', {
@@ -26,6 +28,7 @@ function LoginView() {
               localStorage.setItem('accessToken', json.accessToken)
               console.log('inicio de sesión exitoso');
               setErrorMessage('');
+              navigate('/orders')
             } else {
               setErrorMessage(json)
               console.log(errorMessage)
