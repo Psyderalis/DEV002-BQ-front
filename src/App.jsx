@@ -16,30 +16,34 @@ function App() {
   }, [])
 
   const accessToken = localStorage.getItem('accessToken');
-  // console.log(accessToken);
-  const [user, setUser] = useState(accessToken);
-  console.log(user)
+  const [user, setUser] = useState(null);
+  console.log(user ? 'ya se ha iniciado sesión' : 'inicie sesión')
 
-  /*   if (!user) {
-      return (
-        <Routes>
-          <Route path='/' element={<LoginView />} />
-          <Route path='*' element={<NotFoundView />} />
-        </Routes>
-      )
-    }; */
 
   return (
     <Routes>
-      <Route path='/' element={<LoginView />} />
+      <Route path='/' element={<LoginView
+        setUser={setUser}
+        accessToken={accessToken} />} />
       <Route path='*' element={<NotFoundView />} />
-      <Route path='orders' element={
-        <ProtectedRoute user={user}>
-          <WaiterView />
+      <Route path='waiter' element={
+        <ProtectedRoute userRol={!!user}>
+          <WaiterView
+            setUser={setUser}
+            accessToken={accessToken} />
+        </ProtectedRoute>
+      } />
+      <Route path='/kitchen' element={
+        <ProtectedRoute userRol={!!user && user.rol == 'kitchen'}>
+          <h1>Vista de cocina</h1>
+        </ProtectedRoute>} />
+      <Route path='/admin' element={
+        <ProtectedRoute userRol={!!user && user.rol == 'admin'}>
+          <h1>Vista de Admin</h1>
         </ProtectedRoute>
       } />
     </Routes>
   )
-}
+};
 
 export default App;

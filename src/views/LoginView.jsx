@@ -7,11 +7,21 @@ import LoginForm from '../components/LoginForm'
 
 // corregir: que el formulario solo entregue información a LoginView y sea este, quien actualice el estado de user
 
-function LoginView() {
+function LoginView({ setUser, accessToken }) {
 
   const [errorMessage, setErrorMessage] = useState('')
   const [credentials, setCredentials] = useState(null);
   const navigate = useNavigate();
+
+  const getUserData = () => {
+    fetch(`http://localhost:8080/users/${credentials.email}`, {
+      headers: {
+        authorization: `Bearer ${accessToken}`
+      }
+    })
+      .then(res => res.json())
+      .then(json => console.log(json))
+  }
 
   if (credentials) {
     fetch('http://localhost:8080/login', {
@@ -28,7 +38,10 @@ function LoginView() {
               localStorage.setItem('accessToken', json.accessToken)
               console.log('inicio de sesión exitoso');
               setErrorMessage('');
-              navigate('/orders')
+              getUserData();
+              setUser(true)
+
+             // navigate('/waiter')
             } else {
               setErrorMessage(json)
               console.log(errorMessage)

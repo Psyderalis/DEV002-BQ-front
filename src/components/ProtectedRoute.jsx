@@ -1,10 +1,9 @@
 import { Navigate } from 'react-router-dom';
 
-const ProtectedRoute = ({ children, user }) => {
-    if (!user) {
+const ProtectedRoute = ({ children, userRol }) => {
+    if (!userRol) {
         return <Navigate to='/' />
-    }
-
+    };
     return children
 };
 

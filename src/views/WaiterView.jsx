@@ -3,11 +3,10 @@ import { useNavigate } from "react-router-dom";
 import Logo from '../img/logo.png';
 import ProductCard from "../components/ProductCard";
 
-function MesaHomeView() {
+function MesaHomeView({ setUser, accessToken }) {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate();
-  const accessToken = localStorage.getItem('accessToken')
 
 
   useEffect(() => {
@@ -24,23 +23,32 @@ function MesaHomeView() {
       .finally(() => setLoading(false))
   }, [])
 
- // console.log(products)
+  // console.log(products)
 
   const logout = () => {
     localStorage.removeItem('accessToken')
+    setUser(false)
     console.log('Se cerró la sesión')
     navigate('/')
   };
+
+  const infoUser = () => {
+    fetch('http://localhost:8080/users', {
+      headers: {
+        authorization: `Bearer ${accessToken}`
+      }
+    })
+      .then(res => res.json())
+      .then(json => console.log(json))
+  }
 
   return (
     loading ? <h3>Cargando...</h3> :
 
       <div>
         <p>Mesa Home view</p>
-        <button
-        onClick={logout}>
-          Logout</button>
-        <h3> INICIO DE SESIÓN EXITOSO 💗✨</h3>
+        <button onClick={logout}> Logout </button>
+        <button onClick={infoUser}> info usuaria </button>
         <div>
           {
             products.map((product) => {
