@@ -10,21 +10,20 @@ import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
 
-  useEffect(() => {
+ /*  useEffect(() => {
     //consultar si existe token en localStorage
     //para setear mi user
-  }, [])
+  }, []) */
 
   const accessToken = localStorage.getItem('accessToken');
   const [user, setUser] = useState(null);
-  console.log(user ? 'ya se ha iniciado sesión' : 'inicie sesión')
+
+  console.log(user ? 'sesión iniciada' : 'inicie sesión')
 
 
   return (
     <Routes>
-      <Route path='/' element={<LoginView
-        setUser={setUser}
-        accessToken={accessToken} />} />
+      <Route path='/' element={<LoginView setUser={setUser} />} />
       <Route path='*' element={<NotFoundView />} />
       <Route path='waiter' element={
         <ProtectedRoute userRol={!!user}>
