@@ -1,7 +1,16 @@
-import { describe, expect, test } from "vitest";
+import { beforeEach, describe, expect, test } from "vitest";
+import { render, screen } from "@testing-library/react";
+
+import ProductCard from "./ProductCard";
 
 describe('ProductCard', () => {
-    test('should add two numbers', () => {
-        expect(1 + 1).toBe(2)
-    })
+  beforeEach(()=> {
+    render(<ProductCard/>)
+  })
+  test('should show the ProductCard component', () => {
+    expect(screen.queryByText(/precio/i)).toBeDefined()
+  })
+  test('Should show tittle all the time', () => {
+   expect() 
+  })
 })
