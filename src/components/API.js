@@ -1,4 +1,4 @@
-const login = () => {
+const login = (credentials) => {
   fetch('http://localhost:8080/login', {
     method: 'POST',
     body: JSON.stringify(credentials),
@@ -6,6 +6,7 @@ const login = () => {
       'Content-type': 'application/json; charset=UTF-8',
     },
   })
+  .then((res) => res.json())
 };
 
 const infoUser = () => {
@@ -31,3 +32,7 @@ const getProducts = () => {
     .catch(err => console.log(err))
     .finally(() => setLoading(false))
 };
+
+export {
+  login
+}

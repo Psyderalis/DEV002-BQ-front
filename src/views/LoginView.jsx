@@ -3,9 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import '../stylesheets/LoginView.css'
 import Logo from '../img/logo.png';
-import LoginForm from '../components/LoginForm'
-
-// corregir: que el formulario solo entregue información a LoginView y sea este, quien actualice el estado de user
+import LoginForm from '../components/LoginForm/LoginForm'
 
 function LoginView() {
 
@@ -50,7 +48,6 @@ function LoginView() {
   }
   return (
     <div className='login-container'>
-      <button onClick={cerrarSesion}>cerrar sesión</button>
       <div className='logo-container'>
         <img className='logo' src={Logo} alt='Logo Dhelados' />
         <p className='bienvenida-container'>
@@ -58,6 +55,7 @@ function LoginView() {
         </p>
       </div>
       <LoginForm setCredentials={setCredentials} />
+      <button onClick={cerrarSesion}>cerrar sesión</button>
       <p>{errorMessage}</p>
     </div >
   )

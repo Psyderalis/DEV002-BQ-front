@@ -1,0 +1,10 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 60px;
+    border: 2px solid whitesmoke;
+}
+
+header img {
+    height: 60px;
+}

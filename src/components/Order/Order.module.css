@@ -1,0 +1,47 @@
+.orderContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border: 3px solid whitesmoke;
+    padding: 30px;
+    margin: 20px;
+    border-radius: 10px;
+    min-width: 50%;
+}
+
+.productsContainer{
+    height: 100%;
+    width: 90%;
+}
+
+.productGrid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    margin: 30px 10px;
+    justify-content: space-between;
+    background-color: #282727;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.check {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+}
+
+.btnContainer {
+    display: flex;
+    width: 100%;
+    padding: 20px;
+    justify-content: space-between;
+}
+
+.btnContainer button {
+    padding: 10px;
+    font-size: medium;
+    height: fit-content;
+    width: fit-content;
+    font-weight: bold;
+}
