@@ -6,13 +6,3 @@ justify-content: space-around;
 .container {
  display: flex;
 }
-
-.productsContainer {
-    border: 3px solid whitesmoke;
-    padding: 30px;
-    margin: 20px;
-    border-radius: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    max-width: 50%;
-}

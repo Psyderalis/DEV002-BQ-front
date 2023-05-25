@@ -1,6 +1,6 @@
 import styles from './Order.module.css'
 
-export default function Order({ orderedProducts, deleteProduct }) {
+export default function Order({ orderedProducts, deleteProduct, increaseProductAmount, decreaseProductAmount }) {
 
     return (
         <div className={styles.orderContainer}>
@@ -11,14 +11,18 @@ export default function Order({ orderedProducts, deleteProduct }) {
                         <div className={styles.productGrid} key={product.id}>
                             <p>{product.name}</p>
                             <div className={styles.counter}>
-                                <button>-</button>
+                                <button onClick={() => decreaseProductAmount(product)}>
+                                    -
+                                </button>
                                 <p>{product.amount}</p>
-                                <button>+</button>
+                                <button onClick={() => increaseProductAmount(product)} >
+                                    +
+                                </button>
                             </div>
-                            <p>$ ${product.price}</p>
-                            <p 
-                            className={styles.remover} 
-                            onClick={() => deleteProduct(product)}>
+                            <p>${product.price}</p>
+                            <p
+                                className={styles.remover}
+                                onClick={() => deleteProduct(product)}>
                                 X
                             </p>
                         </div>

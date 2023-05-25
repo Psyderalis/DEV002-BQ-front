@@ -25,6 +25,7 @@ button {
   border-radius: 15px;
   padding: 8px;
   border: 2px solid whitesmoke;
+  font-family: var(--font);
 }
 
 button:hover {

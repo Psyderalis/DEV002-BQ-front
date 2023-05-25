@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import styles from './Waiter.module.css'
 
-import ProductCard from "../../components/ProductCard/ProductCard";
+import Menu from '../../components/Menu/Menu'
 import Order from "../../components/Order/Order";
 
 function WaiterView() {
@@ -56,12 +56,24 @@ function WaiterView() {
     setOrderedProducts(updateProducts)
   }
 
-  function addCountProduct(product) {
-    product.amount =+ 1
+  function increaseProductAmount(item) {
+    const updatedProducts = orderedProducts.map(product => {
+      if (product.id === item.id) {
+        return { ...product, amount: product.amount + 1 }
+      }
+      return product
+    })
+    setOrderedProducts(updatedProducts)
   }
 
-  function decreaseCountProduct(product) {
-    product.amount =- 1
+  function decreaseProductAmount(item) {
+    const updatedProducts = orderedProducts.map(product => {
+      if (product.id === item.id) {
+        return { ...product, amount: product.amount - 1 }
+      }
+      return product
+    })
+    setOrderedProducts(updatedProducts)
   }
 
   return (
@@ -74,23 +86,14 @@ function WaiterView() {
         </nav>
 
         <div className={styles.container}>
-          <div className={styles.productsContainer}>
-            {
-              products.map((product) => {
-                return (
-                  <ProductCard
-                    key={product.id}
-                    img={product.image}
-                    name={product.name}
-                    price={product.price}
-                    handleClick={() => addProduct(product)} />
-                )
-              })
-            }
-          </div>
+          <Menu
+            products={products}
+            addProduct={addProduct} />
           <Order
             orderedProducts={orderedProducts}
-            deleteProduct={deleteProduct} />
+            deleteProduct={deleteProduct}
+            decreaseProductAmount={decreaseProductAmount}
+            increaseProductAmount={increaseProductAmount} />
         </div>
       </div>
   )
