@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import '../stylesheets/LoginView.css'
-import Logo from '../img/logo.png';
-import LoginForm from '../components/LoginForm/LoginForm'
+import styles from './LoginView.module.css'
+import Logo from '../../img/logo.png'
+import LoginForm from '../../components/LoginForm/LoginForm'
 
 function LoginView() {
 
   const [errorMessage, setErrorMessage] = useState('');
   const [credentials, setCredentials] = useState(null);
+
+  const navigate = useNavigate()
 
   if (credentials) {
     fetch('http://localhost:8080/login', {
@@ -24,9 +26,8 @@ function LoginView() {
             if (res.ok) {
               localStorage.setItem('accessToken', json.accessToken);
               console.log('inicio de sesión exitoso');
-              console.log(localStorage.getItem('accessToken'))
               setErrorMessage('');
-              // navigate('/waiter')
+              navigate('/waiter')
             } else {
               setErrorMessage(json)
               console.log(errorMessage)
@@ -39,23 +40,15 @@ function LoginView() {
       });
   };
 
-  function cerrarSesion() {
-    console.log(localStorage.length)
-    localStorage.removeItem('accessToken')
-    if (localStorage.length === 0) {
-      console.log('sesión cerrada')
-    }
-  }
   return (
-    <div className='login-container'>
-      <div className='logo-container'>
-        <img className='logo' src={Logo} alt='Logo Dhelados' />
-        <p className='bienvenida-container'>
+    <div className={styles.loginContainer}>
+      <div className={styles.logoContaine}>
+        <img className={styles.logo} src={Logo} alt='Logo Dhelados' />
+        <p className={styles.welcomeContainer}>
           ¡Bienvenida/o!
         </p>
       </div>
       <LoginForm setCredentials={setCredentials} />
-      <button onClick={cerrarSesion}>cerrar sesión</button>
       <p>{errorMessage}</p>
     </div >
   )

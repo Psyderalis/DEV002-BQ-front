@@ -1,0 +1,32 @@
+.loginForm {
+    display: flex;
+    margin-top: 40px;
+    flex-direction: column;
+    align-items: center;
+    height: 537px;
+    width: 482px;
+    gap: 25px;
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    width: 482px;
+    color: var(--green-color);
+    gap: 10px;
+}
+
+.input {
+    height: 60px;
+    text-align: center;
+    font-size: 100%;
+    background-color: gainsboro;
+    border-radius: 15px;
+}
+
+button {
+    margin-top: 10%;
+    height: 80px;
+    width: 300px;
+    font-size: 30px;
+}

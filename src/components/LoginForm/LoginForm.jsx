@@ -1,3 +1,5 @@
+import styles from './LoginForm.module.css'
+
 function LoginForm({ setCredentials }) {
 
     let credentials = {
@@ -15,25 +17,25 @@ function LoginForm({ setCredentials }) {
     };
 
     return (
-        <div className='form-container'>
+        <div>
             <p>Ingrese sus datos, por favor:</p>
-            <form className='login-form' >
-                <div className='input-container'>
+            <form className={styles.loginForm} >
+                <div className={styles.inputContainer}>
                     <label htmlFor='email'>Correo:</label>
                     <input
                         type='email'
-                        className='input'
+                        className={styles.input}
                         name='email'
                         id='email'
                         placeholder='example@example.com'
                         onChange={handleChange}
                     />
                 </div>
-                <div className='input-container'>
+                <div className={styles.inputContainer}>
                     <label htmlFor='password'>Contraseña:</label>
                     <input
                         type='password'
-                        className='input'
+                        className={styles.input}
                         name='password'
                         id='password'
                         placeholder='********'

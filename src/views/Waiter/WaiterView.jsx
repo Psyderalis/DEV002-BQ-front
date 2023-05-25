@@ -24,13 +24,24 @@ function WaiterView() {
       .finally(() => setLoading(false))
   }, [])
 
-  const [orderedProducts, setOrderedProducts] = useState([1,2, 3, 4])
+  const [orderedProducts, setOrderedProducts] = useState([1, 2, 3, 4])
+
+  function cerrarSesion() {
+    console.log(localStorage.length)
+    localStorage.removeItem('accessToken')
+    if (localStorage.length === 0) {
+      console.log('sesión cerrada')
+    }
+  }
 
   return (
     loading ? <h3>Cargando...</h3> :
 
       <div>
-        <h1>Mesera</h1>
+        <nav>
+          <h1>Mesera</h1>
+          <button onClick={cerrarSesion}>cerrar sesión</button>
+        </nav>
 
         <div className={styles.container}>
           <div className={styles.productsContainer}>
@@ -46,7 +57,7 @@ function WaiterView() {
               })
             }
           </div>
-          <Order orderedProducts={orderedProducts}/>
+          <Order orderedProducts={orderedProducts} />
         </div>
       </div>
   )

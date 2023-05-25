@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { useState, useEffect } from 'react'
 
 import WaiterView from './views/Waiter/WaiterView';
-import LoginView from './views/LoginView';
+import LoginView from './views/Login/LoginView';
 import NotFoundView from './views/NotFoundView';
 import Header from "./components/Header/Header";
 
@@ -10,7 +10,8 @@ import Header from "./components/Header/Header";
 
 function App() {
 
-  // const accessToken = localStorage.getItem('accesToken')
+  const accessToken = localStorage.getItem('accesToken')
+  accessToken ? console.log('sesión iniciada') : console.log('no se ha iniciado sesión')
 
   return (
     <div>
