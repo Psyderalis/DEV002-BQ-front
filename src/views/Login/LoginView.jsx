@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import styles from './LoginView.module.css'
+
 import Logo from '../../img/logo.png'
 import LoginForm from '../../components/LoginForm/LoginForm'
 
@@ -41,16 +42,19 @@ function LoginView() {
   };
 
   return (
-    <div className={styles.loginContainer}>
-      <div className={styles.logoContaine}>
-        <img className={styles.logo} src={Logo} alt='Logo Dhelados' />
-        <p className={styles.welcomeContainer}>
-          ¡Bienvenida/o!
-        </p>
-      </div>
-      <LoginForm setCredentials={setCredentials} />
-      <p>{errorMessage}</p>
-    </div >
+    <div className={styles.container}>
+      <div className={styles.loginContainer}>
+        <div className={styles.logoContainer}>
+          <img className={styles.logo} src={Logo} alt='Logo Dhelados' />
+          <p className={styles.welcomeContainer}>
+            ¡Bienvenida/o!
+          </p>
+        </div>
+        <LoginForm
+          setCredentials={setCredentials}
+          errorMessage={errorMessage} />
+      </div >
+    </div>
   )
 }
 

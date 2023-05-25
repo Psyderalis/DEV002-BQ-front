@@ -1,6 +1,6 @@
 import styles from './LoginForm.module.css'
 
-function LoginForm({ setCredentials }) {
+function LoginForm({ setCredentials, errorMessage }) {
 
     let credentials = {
         'email': '',
@@ -17,7 +17,7 @@ function LoginForm({ setCredentials }) {
     };
 
     return (
-        <div>
+        <div className={styles.container}>
             <p>Ingrese sus datos, por favor:</p>
             <form className={styles.loginForm} >
                 <div className={styles.inputContainer}>
@@ -48,6 +48,7 @@ function LoginForm({ setCredentials }) {
                     INGRESAR
                 </button>
             </form>
+            <p className={styles.errorMsg}>{errorMessage}</p>
         </div>
     )
 };
