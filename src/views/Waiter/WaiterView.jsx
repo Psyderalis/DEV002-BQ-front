@@ -10,6 +10,8 @@ function WaiterView() {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [orderedProducts, setOrderedProducts] = useState([])
+  const [message, setMessage] = useState('')
+
 
   const navigate = useNavigate()
 
@@ -29,7 +31,6 @@ function WaiterView() {
       .finally(() => setLoading(false))
   }, [])
 
-
   function cerrarSesion() {
     localStorage.removeItem('accessToken')
     if (localStorage.length === 0) {
@@ -38,6 +39,12 @@ function WaiterView() {
     navigate('/')
   }
 
+  function updateMessage (newMessage) {
+    setMessage(newMessage)
+    setTimeout(() => {
+      setMessage('')
+    }, 2000)
+  }
 
   function addProduct(item) {
     if (!orderedProducts.some(product => product.id === item.id)) {
@@ -48,7 +55,7 @@ function WaiterView() {
         amount: 1
       }
       setOrderedProducts(prevProducts => [...prevProducts, orderedProduct])
-    } else console.log('item ya existe')
+    } else updateMessage('Ya se agregó este producto')
   }
 
   function deleteProduct(item) {
@@ -76,6 +83,11 @@ function WaiterView() {
     setOrderedProducts(updatedProducts)
   }
 
+  function deleteOrder () {
+    setOrderedProducts([])
+    updateMessage('Orden eliminada')
+  }
+
   return (
     loading ? <h3>Cargando...</h3> :
 
@@ -93,7 +105,9 @@ function WaiterView() {
             orderedProducts={orderedProducts}
             deleteProduct={deleteProduct}
             decreaseProductAmount={decreaseProductAmount}
-            increaseProductAmount={increaseProductAmount} />
+            increaseProductAmount={increaseProductAmount}
+            message={message}
+            deleteOrder={deleteOrder} />
         </div>
       </div>
   )

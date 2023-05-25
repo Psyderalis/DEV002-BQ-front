@@ -2,7 +2,7 @@ import styles from './Order.module.css'
 
 import { useState, useEffect } from 'react'
 
-export default function Order({ orderedProducts, deleteProduct, increaseProductAmount, decreaseProductAmount }) {
+export default function Order({ orderedProducts, deleteProduct, increaseProductAmount, decreaseProductAmount, message, deleteOrder }) {
     const [total, setTotal] = useState(0)
     
     useEffect(() => {
@@ -20,6 +20,7 @@ export default function Order({ orderedProducts, deleteProduct, increaseProductA
     return (
         <div className={styles.orderContainer}>
             <h2>Orden</h2>
+            <p className={styles.msg}>{message}</p>
             <div className={styles.productsContainer}>
                 {orderedProducts.map(product => {
                     return (
@@ -50,7 +51,9 @@ export default function Order({ orderedProducts, deleteProduct, increaseProductA
             </div>
             <div className={styles.btnContainer}>
                 <button>Enviar a cocina</button>
-                <button>Eliminar pedido</button>
+                <button onClick={deleteOrder}>
+                    Eliminar pedido
+                    </button>
             </div>
 
         </div>
