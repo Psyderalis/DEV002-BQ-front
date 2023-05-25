@@ -1,6 +1,21 @@
 import styles from './Order.module.css'
 
+import { useState, useEffect } from 'react'
+
 export default function Order({ orderedProducts, deleteProduct, increaseProductAmount, decreaseProductAmount }) {
+    const [total, setTotal] = useState(0)
+    
+    useEffect(() => {
+        updateTotal();
+      }, [orderedProducts]);
+
+    function updateTotal() {
+        let newTotal = 0
+        orderedProducts.forEach(product => {
+            newTotal += product.price * product.amount
+        })
+        setTotal(newTotal)
+    }
 
     return (
         <div className={styles.orderContainer}>
@@ -31,7 +46,7 @@ export default function Order({ orderedProducts, deleteProduct, increaseProductA
             </div>
             <div className={styles.check}>
                 <p>Total</p>
-                <p>$</p>
+                <p>$ {total}</p>
             </div>
             <div className={styles.btnContainer}>
                 <button>Enviar a cocina</button>

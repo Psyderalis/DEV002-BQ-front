@@ -68,7 +68,7 @@ function WaiterView() {
 
   function decreaseProductAmount(item) {
     const updatedProducts = orderedProducts.map(product => {
-      if (product.id === item.id) {
+      if (product.id === item.id && item.amount > 1) {
         return { ...product, amount: product.amount - 1 }
       }
       return product
