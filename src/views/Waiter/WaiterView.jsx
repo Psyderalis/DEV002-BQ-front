@@ -56,7 +56,12 @@ function WaiterView() {
     setOrderedProducts(updateProducts)
   }
 
-  function countProduct(product) {
+  function addCountProduct(product) {
+    product.amount =+ 1
+  }
+
+  function decreaseCountProduct(product) {
+    product.amount =- 1
   }
 
   return (
