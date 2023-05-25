@@ -2,23 +2,33 @@
   --font: 'Inder', sans-serif;
   --bg-color: rgba(15, 9, 20, 1);
   --white-color: rgb(245, 246, 247);
-  --green-color:  rgba(212, 255, 0, 1);
+  --green-color: rgba(212, 255, 0, 1);
   --pink-color: rgba(252, 12, 158, 1);
   --purple-color: rgba(43, 34, 80, 1);
 }
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html, body {
-    font-family: var(--font);
-    color: var(--white-color);
-    background-color: var(--bg-color);
-  }
+html,
+body {
+  font-family: var(--font);
+  color: var(--white-color);
+  background-color: var(--bg-color);
+}
 
-  button {
-    background-color: var(--green-color);
-    border-radius: 15px;
+button {
+  background-color: var(--green-color);
+  border-radius: 15px;
+  padding: 8px;
+  border: 2px solid whitesmoke;
+}
+
+button:hover {
+  cursor: pointer;
+  border: 2px solid var(--purple-color);
+
 }
