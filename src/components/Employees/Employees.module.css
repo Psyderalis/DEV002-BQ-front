@@ -1,0 +1,14 @@
+.section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    min-height: 500px;
+    margin: 20px;
+    border: 2px solid whitesmoke;
+}
+
+.container {
+    border: 2px solid whitesmoke;
+    min-height: 100px;
+    padding: 10px;
+}
