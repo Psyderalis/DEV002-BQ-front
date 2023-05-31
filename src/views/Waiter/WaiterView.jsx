@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
+import { fetchProducts } from '../../components/api';
+
 
 import styles from './Waiter.module.css'
 
@@ -12,18 +14,12 @@ function WaiterView() {
   const [orderedProducts, setOrderedProducts] = useState([])
   const [message, setMessage] = useState('')
 
-
   const navigate = useNavigate()
 
   const accessToken = localStorage.getItem('accessToken')
 
   useEffect(() => {
-    fetch('http://localhost:8080/products', {
-      headers: {
-        authorization: `Bearer ${accessToken}`
-      }
-    })
-      .then(res => res.json())
+   fetchProducts(accessToken)
       .then(json => {
         setProducts(json)
       })
@@ -39,53 +35,11 @@ function WaiterView() {
     navigate('/')
   }
 
-  function updateMessage (newMessage) {
+  function updateMessage(newMessage) {
     setMessage(newMessage)
     setTimeout(() => {
       setMessage('')
     }, 2000)
-  }
-
-  function addProduct(item) {
-    if (!orderedProducts.some(product => product.id === item.id)) {
-      const orderedProduct = {
-        id: item.id,
-        name: item.name,
-        price: item.price,
-        amount: 1
-      }
-      setOrderedProducts(prevProducts => [...prevProducts, orderedProduct])
-    } else updateMessage('Ya se agregó este producto')
-  }
-
-  function deleteProduct(item) {
-    const updateProducts = orderedProducts.filter(product => product.id !== item.id)
-    setOrderedProducts(updateProducts)
-  }
-
-  function increaseProductAmount(item) {
-    const updatedProducts = orderedProducts.map(product => {
-      if (product.id === item.id) {
-        return { ...product, amount: product.amount + 1 }
-      }
-      return product
-    })
-    setOrderedProducts(updatedProducts)
-  }
-
-  function decreaseProductAmount(item) {
-    const updatedProducts = orderedProducts.map(product => {
-      if (product.id === item.id && item.amount > 1) {
-        return { ...product, amount: product.amount - 1 }
-      }
-      return product
-    })
-    setOrderedProducts(updatedProducts)
-  }
-
-  function deleteOrder () {
-    setOrderedProducts([])
-    updateMessage('Orden eliminada')
   }
 
   return (
@@ -100,14 +54,14 @@ function WaiterView() {
         <div className={styles.container}>
           <Menu
             products={products}
-            addProduct={addProduct} />
+            updateMessage={updateMessage}
+            orderedProducts={orderedProducts}
+            setOrderedProducts={setOrderedProducts} />
           <Order
             orderedProducts={orderedProducts}
-            deleteProduct={deleteProduct}
-            decreaseProductAmount={decreaseProductAmount}
-            increaseProductAmount={increaseProductAmount}
+            setOrderedProducts={setOrderedProducts}
             message={message}
-            deleteOrder={deleteOrder} />
+            updateMessage={updateMessage} />
         </div>
       </div>
   )

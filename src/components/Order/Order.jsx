@@ -2,19 +2,53 @@ import styles from './Order.module.css'
 
 import { useState, useEffect } from 'react'
 
-export default function Order({ orderedProducts, deleteProduct, increaseProductAmount, decreaseProductAmount, message, deleteOrder }) {
+export default function Order({ orderedProducts, setOrderedProducts, message, updateMessage }) {
     const [total, setTotal] = useState(0)
-    
+
     useEffect(() => {
         updateTotal();
-      }, [orderedProducts]);
+    }, [orderedProducts]);
 
+    function deleteProduct(item) {
+        const updateProducts = orderedProducts.filter(product => product.id !== item.id)
+        setOrderedProducts(updateProducts)
+    }
+
+    function increaseProductAmount(item) {
+        const updatedProducts = orderedProducts.map(product => {
+            if (product.id === item.id) {
+                return { ...product, amount: product.amount + 1 }
+            }
+            return product
+        })
+        setOrderedProducts(updatedProducts)
+    }
+
+    function decreaseProductAmount(item) {
+        const updatedProducts = orderedProducts.map(product => {
+            if (product.id === item.id && item.amount > 1) {
+                return { ...product, amount: product.amount - 1 }
+            }
+            return product
+        })
+        setOrderedProducts(updatedProducts)
+    }
+
+    function deleteOrder() {
+        setOrderedProducts([])
+        updateMessage('Orden eliminada.')
+    }
     function updateTotal() {
         let newTotal = 0
         orderedProducts.forEach(product => {
             newTotal += product.price * product.amount
         })
         setTotal(newTotal)
+    }
+
+    const sendToKitchen = () => {
+        deleteOrder()
+        updateMessage('Orden enviada a cocina ✨.')
     }
 
     return (
@@ -50,10 +84,10 @@ export default function Order({ orderedProducts, deleteProduct, increaseProductA
                 <p>$ {total}</p>
             </div>
             <div className={styles.btnContainer}>
-                <button>Enviar a cocina</button>
+                <button onClick={sendToKitchen}>Enviar a cocina</button>
                 <button onClick={deleteOrder}>
                     Eliminar pedido
-                    </button>
+                </button>
             </div>
 
         </div>
