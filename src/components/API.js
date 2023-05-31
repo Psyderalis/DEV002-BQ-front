@@ -55,8 +55,26 @@ const fetchUsers = async (token) => {
   }
 }
 
+const addUser = async (token, user) => {
+  try {
+    const response = await fetch('http://localhost:8080/users', {
+      method: 'POST',
+      body: JSON.stringify(user),
+      headers: {
+        authorization: `Bearer ${token}`,
+        'Content-type': 'application/json; charset=UTF-8'
+      }
+    })
+    return await response.json()
+  } catch (error) {
+    console.error(error)
+    return {error: 'Error al agregar el usuario. Intente nuevamente.'}
+  }
+}
+
 export {
   login,
   fetchProducts,
-  fetchUsers
+  fetchUsers,
+  addUser
 }

@@ -1,16 +1,47 @@
-import { useEffect, useState } from 'react'
-import { fetchUsers } from '../api'
+import { useState } from 'react'
+import { fetchUsers, addUser } from '../api'
 
 import styles from './Employees.module.css'
 
 export default function Employees() {
   const accessToken = localStorage.getItem('accessToken')
   const [users, setUsers] = useState(null)
+  const [newUser, setNewUser] = useState({
+    name: '',
+    id: '',
+    role: '',
+    email: '',
+    password: ''
+  })
 
-  const handleShowEmployeesClick = () => {
+  const handleShowUsersClick = () => {
     fetchUsers(accessToken)
       .then(json => setUsers(json))
       .catch(error => console.log(error))
+  }
+  // console.log(users)
+
+
+  const handleInputChange = (e) => {
+    setNewUser({
+      ...newUser,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleForm = (e) => {
+    e.preventDefault()
+    addUser(accessToken, newUser)
+      .then(json => setUsers(json))
+      .catch(error => console.log(error))
+    console.log(newUser)
+    setNewUser({
+      name: '',
+      id: '',
+      role: '',
+      email: '',
+      password: ''
+    })
   }
 
   return (
@@ -20,7 +51,7 @@ export default function Employees() {
 
       <div className={styles.container}>
         <h3>Listado de trabajadores</h3>
-        <button onClick={handleShowEmployeesClick}>Mostrar</button>
+        <button onClick={handleShowUsersClick}>Mostrar</button>
         <div className={styles.container}>
           {users ? (
             <div>
@@ -38,6 +69,39 @@ export default function Employees() {
       </div>
       <div className={styles.container}>
         <h3>Agregar trabajadores</h3>
+        <form onSubmit={handleForm}>
+          <input
+            type='text'
+            name='name'
+            value={newUser.name}
+            placeholder='Ingrese nombre y apellido.'
+            onChange={handleInputChange} />
+          <input
+            type='text'
+            name='id'
+            value={newUser.id}
+            placeholder='Ingrese rut'
+            onChange={handleInputChange} />
+          <input
+            type='text'
+            name='role'
+            value={newUser.role}
+            placeholder='Ingrese rol'
+            onChange={handleInputChange} />
+          <input
+            type='text'
+            name='email'
+            value={newUser.email}
+            placeholder='Ingrese correo'
+            onChange={handleInputChange} />
+          <input
+            type='text'
+            name='password'
+            value={newUser.password}
+            placeholder='Ingrese contraseña'
+            onChange={handleInputChange} />
+          <button type='subtmit'>Agregar empleado</button>
+        </form>
       </div>
       <div className={styles.container}>
         <h3>Eliminar trabajadores</h3>
